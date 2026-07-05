@@ -35,7 +35,7 @@
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FFE082'/%3E%3Cstop offset='.55' stop-color='%23FFC93C'/%3E%3Cstop offset='1' stop-color='%23FF9A3C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='46' height='46' rx='13' fill='url(%23g)'/%3E%3Cpath d='M5 27 h8 M3 32 h6 M7 22 h5' stroke='%230B1220' stroke-width='2.6' stroke-linecap='round' opacity='.8'/%3E%3Ccircle cx='27' cy='23' r='12.5' fill='%23fff' stroke='%230B1220' stroke-width='2.4'/%3E%3Cpolygon points='27,17.4 32.3,21.3 30.3,27.4 23.7,27.4 21.7,21.3' fill='%230B1220'/%3E%3Cpath d='M27 17.4 V11.6 M32.3 21.3 L38 19 M30.3 27.4 L34 32.6 M23.7 27.4 L20 32.6 M21.7 21.3 L16 19' stroke='%230B1220' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&family=Mochiy+Pop+One&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&family=Mochiy+Pop+One&family=Dela+Gothic+One&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#EAF2FF;          /* デイゲームの空 */
@@ -98,11 +98,10 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 .logo:hover .mark{transform:rotate(-10deg) scale(1.06)}
 .logo .mark svg{width:100%;height:100%;display:block}
 .logo b{
-  font-family:var(--pop);font-weight:400;font-size:22px;letter-spacing:.01em;line-height:1;
-  color:#12203C;background:linear-gradient(transparent 58%, rgba(255,201,30,.7) 58%);
-  padding:0 4px;border-radius:4px;
+  font-family:"Dela Gothic One",var(--pop);font-weight:400;font-size:20px;letter-spacing:.01em;line-height:1.05;
+  color:#12203C;text-shadow:2.5px 2.5px 0 #FFC01E, 3.5px 3.5px 0 rgba(18,32,60,.14);
 }
-.logo small{display:block;color:#6E80A5;font-size:11.5px;font-weight:500;letter-spacing:.18em;font-family:Oswald}
+.logo small{display:block;color:#1B2A4A;font-size:11px;font-weight:700;letter-spacing:.26em;font-family:Oswald;margin-top:3px}
 .search{flex:1;max-width:460px;position:relative}
 .search input{
   width:100%;padding:12px 18px 12px 46px;border-radius:999px;
@@ -157,7 +156,7 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
   font-family:Oswald;letter-spacing:.3em;font-size:13.5px;font-weight:600;color:#FFD84D;
   text-transform:uppercase;
 }
-.hero h1{font-family:var(--pop);font-size:clamp(27px,5vw,45px);font-weight:400;line-height:1.4;margin:12px 0 12px;letter-spacing:.005em;color:#fff;text-shadow:0 2px 12px rgba(4,12,45,.35)}
+.hero h1{font-family:var(--round);font-size:clamp(28px,5.2vw,47px);font-weight:900;line-height:1.36;margin:12px 0 12px;letter-spacing:.01em;color:#fff;text-shadow:0 3px 14px rgba(4,12,45,.4)}
 .hero h1 .u{
   background:linear-gradient(transparent 66%, rgba(255,192,30,.5) 66%);
   padding:0 3px;
@@ -699,23 +698,31 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
         <path d="M10 188 Q120 172 234 104" fill="none" stroke="#FFD84D" stroke-width="7" stroke-linecap="round" opacity=".85"/>
         <g class="hchar">
           <ellipse cx="120" cy="192" rx="56" ry="10" fill="#0A1740" opacity=".3"/>
-          <rect x="44" y="98" width="24" height="48" rx="11" fill="#12203C"/>
-          <rect x="172" y="98" width="24" height="48" rx="11" fill="#12203C"/>
-          <rect x="49" y="105" width="6" height="30" rx="3" fill="#3A5891"/>
-          <rect x="185" y="105" width="6" height="30" rx="3" fill="#3A5891"/>
-          <path d="M55 104 Q120 20 185 104" fill="none" stroke="#12203C" stroke-width="17" stroke-linecap="round"/>
-          <path d="M55 104 Q120 27 185 104" fill="none" stroke="#FFD54A" stroke-width="10" stroke-linecap="round"/>
-          <circle cx="120" cy="120" r="60" fill="#fff" stroke="#12203C" stroke-width="6"/>
-          <polygon points="120,90 133,100 128,116 112,116 107,100" fill="#12203C"/>
-          <polygon points="78,150 90,144 96,157 86,166" fill="#12203C"/>
-          <polygon points="162,150 150,144 144,157 154,166" fill="#12203C"/>
-          <circle cx="104" cy="126" r="6.6" fill="#12203C"/>
-          <circle cx="136" cy="126" r="6.6" fill="#12203C"/>
-          <circle cx="106.4" cy="123.4" r="2" fill="#fff"/>
-          <circle cx="138.4" cy="123.4" r="2" fill="#fff"/>
-          <path d="M104 140 q16 13 32 0" fill="none" stroke="#12203C" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="91" cy="140" r="6" fill="#FF7BAC" opacity=".55"/>
-          <circle cx="149" cy="140" r="6" fill="#FF7BAC" opacity=".55"/>
+          <!-- ヘッドホン：黄色のイヤーカップ -->
+          <rect x="41" y="95" width="27" height="54" rx="13.5" fill="#FFD24A" stroke="#12203C" stroke-width="5"/>
+          <rect x="172" y="95" width="27" height="54" rx="13.5" fill="#FFD24A" stroke="#12203C" stroke-width="5"/>
+          <ellipse cx="54.5" cy="122" rx="5" ry="15" fill="#FFE59A"/>
+          <ellipse cx="185.5" cy="122" rx="5" ry="15" fill="#FFE59A"/>
+          <!-- ヘッドバンド -->
+          <path d="M55 110 Q120 18 185 110" fill="none" stroke="#12203C" stroke-width="18" stroke-linecap="round"/>
+          <path d="M55 110 Q120 26 185 110" fill="none" stroke="#FFD24A" stroke-width="10" stroke-linecap="round"/>
+          <!-- ボール本体 -->
+          <circle cx="120" cy="122" r="60" fill="#fff" stroke="#12203C" stroke-width="6"/>
+          <polygon points="120,86 135,97 129,115 111,115 105,97" fill="#12203C"/>
+          <!-- 目（大きめの縦楕円） -->
+          <ellipse cx="103" cy="129" rx="6" ry="9.5" fill="#12203C"/>
+          <ellipse cx="137" cy="129" rx="6" ry="9.5" fill="#12203C"/>
+          <circle cx="105.4" cy="125" r="2.3" fill="#fff"/>
+          <circle cx="139.4" cy="125" r="2.3" fill="#fff"/>
+          <!-- 鼻 -->
+          <path d="M115 139 q5 5 10 0 q-5 4.5 -10 0z" fill="#12203C"/>
+          <!-- 口 -->
+          <path d="M112 147 q8 7 16 0" fill="none" stroke="#12203C" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- ほお -->
+          <circle cx="89" cy="143" r="6.5" fill="#FF7BAC" opacity=".6"/>
+          <circle cx="151" cy="143" r="6.5" fill="#FF7BAC" opacity=".6"/>
+          <!-- 頭上のスパーク -->
+          <path d="M183 74 l3.2 8 8 3.2 -8 3.2 -3.2 8 -3.2 -8 -8 -3.2 8 -3.2z" fill="#FFD84D" stroke="#12203C" stroke-width="1.6" stroke-linejoin="round"/>
         </g>
         <g fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round">
           <path class="hwv hwv1" d="M40 108 q-9 12 0 24"/>
