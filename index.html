@@ -99,13 +99,17 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 }
 .logo:hover .mark{transform:rotate(-10deg) scale(1.06)}
 .logo .mark svg{width:100%;height:100%;display:block}
+.logo{cursor:pointer}
 .logo b{
-  font-family:"Dela Gothic One",var(--pop);font-weight:400;font-size:20px;letter-spacing:.01em;line-height:1.12;
-  color:#fff;-webkit-text-stroke:2.6px #12203C;paint-order:stroke fill;
-  text-shadow:3px 3px 0 #FF6A2C;
+  font-family:"Dela Gothic One",var(--pop);font-weight:400;font-size:20.5px;letter-spacing:.01em;line-height:1.12;
+  color:#12203C;text-shadow:2.5px 2.5px 0 #FFC01E, 3px 3px 0 rgba(18,32,60,.18);
 }
 .logo small{display:block;color:#1B2A4A;font-size:11px;font-weight:700;letter-spacing:.26em;font-family:Oswald;margin-top:3px}
-.search{flex:1;max-width:460px;position:relative}
+.langtog{flex:none;order:2;font-family:Oswald,inherit;font-weight:700;font-size:13px;letter-spacing:.04em;cursor:pointer;
+  background:#12203C;color:#fff;border:2px solid #12203C;border-radius:999px;padding:7px 14px;white-space:nowrap;
+  transition:filter .15s,transform .15s}
+.langtog:hover{filter:brightness(1.18);transform:translateY(-1px)}
+.search{flex:1;max-width:460px;position:relative;order:1}
 .search input{
   width:100%;padding:12px 44px 12px 46px;border-radius:999px;
   background:#fff;border:2px solid rgba(20,45,95,.18);
@@ -710,6 +714,7 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
       </div>
       <div><b>ピッチの辞書</b><small>PITCH DICTIONARY</small></div>
     </div>
+    <button id="langtog" class="langtog" type="button" aria-label="Switch language / 言語切替">EN</button>
     <div class="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D4F73" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input id="q" type="search" placeholder="用語を検索（例：ハーフスペース、xG、ディレイ…）" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="qsug" aria-expanded="false">
@@ -825,8 +830,8 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
 
 <footer>
   <div class="wrap">
-    図解はすべてオリジナルの戦術ボードで表現しています（実際の試合映像・写真は使用していません）。<br>
-    ピッチの辞書 — サッカー観戦のハードルを下げる、初心者のための用語図鑑。
+    <span id="footintro">図解はすべてオリジナルの戦術ボードで表現しています（実際の試合映像・写真は使用していません）。<br>
+    ピッチの辞書 — サッカー観戦のハードルを下げる、初心者のための用語図鑑。</span>
 
     <div class="company">
       <span class="ctag">PRODUCED BY</span>
@@ -834,7 +839,6 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
       <span class="cmotto">「店のしごと、少しだけ軽くする。」</span>
       <p>京都拠点・全国対応。個人事業主や街の小さなお店のための、AI活用・デジタル化/DX支援の企画室です。ホームページ制作やWEBプレゼンス強化から、予約・在庫・メール・タスクの自動化まで——ITが苦手でも大丈夫。「ちゃんと現場で回る仕組み」をあなたの隣で一緒につくります。このアプリもそんな“つくる楽しさ”から生まれました。</p>
       <a class="cbtn" href="https://kokokikaku.com/" target="_blank" rel="noopener">ここ企画のサイトを見る →</a>
-      <span class="addr">📍 京都府京都市下京区朱雀宝蔵町44番地 協栄ビル2階 京都朱雀スタジオAN-308</span>
     </div>
 
     <div class="copy">© 2026 ここ企画 / ピッチの辞書</div>
@@ -2843,11 +2847,13 @@ VIZ.adidasball=()=>`<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg
 
 /* ================= 描画 ================= */
 const CAT={
-  live:{label:"🎙 実況・ライブ編",col:"#FF9F1C",d:"#B25E00",en:"LIVE",no:"01"},
-  column:{label:"📝 コラム・分析編",col:"#1E96E0",d:"#0E6EAF",en:"COLUMN",no:"02"},
-  data:{label:"📊 データ・スタッツ編",col:"#16B368",d:"#0C8A4E",en:"DATA",no:"03"},
-  rule:{label:"⚖️ ルール・審判編",col:"#A94BD1",d:"#8A34B4",en:"RULES",no:"04"}
+  live:{label:"🎙 実況・ライブ編",labelEn:"🎙 Live Commentary",col:"#FF9F1C",d:"#B25E00",en:"LIVE",no:"01"},
+  column:{label:"📝 コラム・分析編",labelEn:"📝 Column & Analysis",col:"#1E96E0",d:"#0E6EAF",en:"COLUMN",no:"02"},
+  data:{label:"📊 データ・スタッツ編",labelEn:"📊 Data & Stats",col:"#16B368",d:"#0C8A4E",en:"DATA",no:"03"},
+  rule:{label:"⚖️ ルール・審判編",labelEn:"⚖️ Rules & Referee",col:"#A94BD1",d:"#8A34B4",en:"RULES",no:"04"}
 };
+let lang="ja";
+function catLabel(c){return lang==="en"?CAT[c].labelEn:CAT[c].label;}
 const EMOJI={
  delay:"⏳",block:"🧱",pocket:"🎯",linegap:"🚪",channel:"🛣️",press:"🔥",retreat:"🏰",
  isolation:"🥊",cutin:"✂️",overlap:"🏃",secondball:"🍀",compact:"🧲",
@@ -2906,9 +2912,9 @@ function cardHTML(t){
         <span class="cbadge">${EMOJI[t.id]||"⚽"}</span>
         <span class="clvl" title="${esc(LVL[t.lvl])}">${stars}</span>
       </span>
-      <span class="cat">${CAT[t.cat].label}</span>
-      <h3>${t.name}</h3>
-      <span class="en">${t.en}</span>
+      <span class="cat">${catLabel(t.cat)}</span>
+      <h3>${lang==="en"?esc(t.en):t.name}</h3>
+      <span class="en">${lang==="en"?esc(t.name):t.en}</span>
       <span class="one">${t.one}</span>
     </button>`;
 }
@@ -2923,7 +2929,7 @@ function render(){
   if(filter!=="all"||kw){ /* 単一カテゴリー or 検索時はフラット表示 */
     const list=TERMS.filter(t=>(filter==="all"||t.cat===filter)&&matches(t,kw));
     grid.innerHTML=list.length?list.map(cardHTML).join("")
-    :`<div class="empty">${SADBALL}「${esc(kw)}」に当てはまる用語が見つかりませんでした。<br>別の言葉で検索してみてください。</div>`;
+    :`<div class="empty">${SADBALL}${I18N[lang].empty(esc(kw))}</div>`;
     return;
   }
   /* 「すべて」＝カテゴリーごとに折りたたみ表示 */
@@ -2934,13 +2940,13 @@ function render(){
     const show=open?items:items.slice(0,PREVIEW);
     html+=`<div class="sechead" id="sec-${cat}" style="--cc:${CAT[cat].col};--ccd:${CAT[cat].d}">
       <span class="secghost">${CAT[cat].no}</span>
-      <span class="sectxt"><span class="secen">${CAT[cat].en}</span><h2>${CAT[cat].label}</h2></span>
-      <span class="cnt">全${items.length}語${open?"":`（うち${show.length}語を表示中）`}</span>
+      <span class="sectxt"><span class="secen">${CAT[cat].en}</span><h2>${catLabel(cat)}</h2></span>
+      <span class="cnt">${I18N[lang].cnt(items.length,show.length,open)}</span>
     </div>`;
     html+=show.map(cardHTML).join("");
     if(items.length>PREVIEW){
       html+=`<div class="morebtn"><button onclick="toggleSec('${cat}')">${
-        open?"▲ たたむ":`▼ 残り${items.length-PREVIEW}語をすべて表示`
+        open?I18N[lang].close:I18N[lang].more(items.length-PREVIEW)
       }</button></div>`;
     }
   }
@@ -3065,12 +3071,72 @@ document.getElementById("sh-line").href="https://social-plugins.line.me/lineit/s
 document.getElementById("sh-fb").href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(SHARE_URL);
 document.getElementById("sh-copy").addEventListener("click",async e=>{
   try{await navigator.clipboard.writeText(SHARE_URL);
-    e.currentTarget.textContent="✅ コピーしました！";
-    setTimeout(()=>{document.getElementById("sh-copy").textContent="🔗 リンクをコピー"},2000);
-  }catch(_){prompt("このURLをコピーしてください",SHARE_URL)}
+    e.currentTarget.textContent=I18N[lang].copied;
+    setTimeout(()=>{document.getElementById("sh-copy").textContent=I18N[lang].shCopy},2000);
+  }catch(_){prompt("Copy this URL / このURLをコピー",SHARE_URL)}
 });
 
-render();
+/* ================= 言語切替（UI＋用語名 EN/JA） ================= */
+const I18N={
+ ja:{
+  toggle:"EN",
+  search:"用語を検索（例：ハーフスペース、xG、ディレイ…）",
+  kicker:"Football Terms, Visualized",
+  h1:'実況の「今の言葉、何？」を<br><span class="u">3秒で図解</span>する辞書。',
+  lead:"⚽ ハーフスペース？ ネガトラ？ xG？——サッカーにそこまで詳しくなくても大丈夫。動く戦術ボードで、観戦がもっと面白くなる。🏟️",
+  trend:"いま実況・SNSでよく飛び交うワード",
+  cap:function(n){return 'タップすると<b>動く戦術ボード</b>で3秒図解 ⚽ 全'+n+'語収録';},
+  share:"友だちにシェア：",shX:"𝕏 ポスト",shLine:"💬 LINE",shFb:"f シェア",shCopy:"🔗 リンクをコピー",copied:"✅ コピーしました！",
+  tabs:{all:"すべて",live:"🎙 実況・ライブ",column:"📝 コラム・分析",data:"📊 データ・スタッツ",rule:"⚖️ ルール・審判"},
+  more:function(n){return '▼ 残り'+n+'語をすべて表示';},close:"▲ たたむ",
+  cnt:function(a,s,o){return '全'+a+'語'+(o?'':'（うち'+s+'語を表示中）');},
+  empty:function(k){return '「'+k+'」に当てはまる用語が見つかりませんでした。<br>別の言葉で検索してみてください。';},
+  foot:"図解はすべてオリジナルの戦術ボードで表現しています（実際の試合映像・写真は使用していません）。<br>ピッチの辞書 — サッカー観戦のハードルを下げる、初心者のための用語図鑑。"
+ },
+ en:{
+  toggle:"日本語",
+  search:"Search terms (e.g. half-space, xG, delay…)",
+  kicker:"Football Terms, Visualized",
+  h1:'The dictionary that turns “what did the commentator just say?” into a <span class="u">3-second explainer</span>.',
+  lead:"⚽ Half-space? Negative transition? xG? — You don’t have to be a football buff. Animated tactics boards make watching way more fun. 🏟️",
+  trend:"Trending in live commentary & social right now",
+  cap:function(n){return 'Tap a card for a <b>3-second animated</b> explainer ⚽ '+n+' terms';},
+  share:"Share:",shX:"𝕏 Post",shLine:"💬 LINE",shFb:"f Share",shCopy:"🔗 Copy link",copied:"✅ Copied!",
+  tabs:{all:"All",live:"🎙 Live",column:"📝 Column",data:"📊 Data",rule:"⚖️ Rules"},
+  more:function(n){return '▼ Show '+n+' more';},close:"▲ Collapse",
+  cnt:function(a,s,o){return a+' terms'+(o?'':' (showing '+s+')');},
+  empty:function(k){return 'No terms matched “'+k+'”.<br>Try a different word.';},
+  foot:"All diagrams are original tactics-board illustrations (no real match footage or photos are used).<br>PITCH DICTIONARY — a beginner-friendly visual glossary that lowers the bar for enjoying football."
+ }
+};
+function _qs(s){return document.querySelector(s);}
+function applyLang(l){
+  lang=(l==="en")?"en":"ja";const T=I18N[lang];
+  try{localStorage.setItem("pd_lang",lang);}catch(_){}
+  document.documentElement.lang=lang;
+  q.placeholder=T.search;
+  var k=_qs(".hero .kicker");if(k)k.textContent=T.kicker;
+  var h=_qs(".hero h1");if(h)h.innerHTML=T.h1;
+  var p=_qs(".hero p");if(p)p.innerHTML=T.lead;
+  var tl=_qs(".trend .tlabel");if(tl)tl.innerHTML='<span class="live-dot"></span>'+T.trend;
+  var cap=_qs(".herocap");if(cap)cap.innerHTML=T.cap(TERMS.length);
+  var sl=_qs(".share .slbl");if(sl)sl.textContent=T.share;
+  var m={"sh-x":T.shX,"sh-line":T.shLine,"sh-fb":T.shFb,"sh-copy":T.shCopy};
+  Object.keys(m).forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=m[id];});
+  var fi=document.getElementById("footintro");if(fi)fi.innerHTML=T.foot;
+  document.querySelectorAll("#tabs .tab").forEach(function(b){if(T.tabs[b.dataset.f])b.textContent=T.tabs[b.dataset.f];});
+  var lt=document.getElementById("langtog");if(lt)lt.textContent=T.toggle;
+  render();
+  if(window.__setTabTop)window.__setTabTop();
+}
+(function(){
+  var lt=document.getElementById("langtog");
+  if(lt)lt.addEventListener("click",function(){applyLang(lang==="ja"?"en":"ja");});
+  var lg=document.querySelector(".logo");
+  if(lg)lg.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
+  var saved=null;try{saved=localStorage.getItem("pd_lang");}catch(_){}
+  applyLang(saved==="en"?"en":"ja");
+})();
 
 </script>
 </body>
