@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: viz-en+orange-header -->
+<!-- build: viz-en+orange-header+ticker -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -207,10 +207,21 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 .chip{
   padding:9px 18px;border-radius:999px;cursor:pointer;font:inherit;font-size:14.5px;font-weight:700;
   background:#fff;color:var(--ink);border:2px solid rgba(20,45,95,.14);
-  box-shadow:0 2px 9px rgba(20,40,90,.09);
+  box-shadow:0 2px 9px rgba(20,40,90,.09);white-space:nowrap;flex:none;
   transition:transform .15s, border-color .15s, background .15s;
 }
 .chip:hover{transform:translateY(-2px);border-color:var(--accent);background:#FFF6DC}
+/* ---------- 流れるワードティッカー ---------- */
+.ticker{
+  overflow:hidden;width:100%;padding:6px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.ticker-track{display:flex;gap:9px;width:max-content;animation:tickerscroll 46s linear infinite;will-change:transform}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker .chip{box-shadow:0 3px 12px rgba(4,12,45,.16)}
+@keyframes tickerscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none;flex-wrap:wrap;justify-content:center}}
 
 /* ---------- tabs ---------- */
 .tabs{
@@ -799,7 +810,7 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
 
   <section class="trend">
     <div class="tlabel"><span class="live-dot"></span>いま実況・SNSでよく飛び交うワード</div>
-    <div class="chips" id="chips"></div>
+    <div class="ticker" id="ticker"><div class="ticker-track" id="chips"></div></div>
   </section>
 
   <nav class="tabs" id="tabs">
@@ -3324,10 +3335,15 @@ function render(){
 
 /* トレンドチップ */
 const TREND=["immersiveview","refereeview","count5","adidasball","injury1min","malicia","golasso","kamada1mm","sanokaishu","mitoma1mm","cutback","halfspace","negatrans","xg","offside"];
-document.getElementById("chips").innerHTML=TREND.map(id=>{
-  const t=TERMS.find(x=>x.id===id);
-  return `<button class="chip" onclick="openModal('${id}')">${t.name.split("（")[0].split("／")[0]}</button>`;
-}).join("");
+function buildTicker(){
+  const items=TREND.map(id=>{
+    const t=TERMS.find(x=>x.id===id); if(!t) return "";
+    const label = (typeof lang!=="undefined"&&lang==="en") ? esc(t.en) : t.name.split("（")[0].split("／")[0];
+    return `<button class="chip" onclick="openModal('${id}')">${label}</button>`;
+  }).join("");
+  const el=document.getElementById("chips"); if(el) el.innerHTML=items+items; /* 2連結でシームレスにループ */
+}
+buildTicker();
 
 /* タブ */
 document.getElementById("tabs").addEventListener("click",e=>{
@@ -3625,6 +3641,7 @@ function applyLang(l){
   var h=_qs(".hero h1");if(h)h.innerHTML=T.h1;
   var p=_qs(".hero p");if(p)p.innerHTML=T.lead;
   var tl=_qs(".trend .tlabel");if(tl)tl.innerHTML='<span class="live-dot"></span>'+T.trend;
+  if(typeof buildTicker==="function")buildTicker();
   var cap=_qs(".herocap");if(cap)cap.innerHTML=T.cap(TERMS.length);
   var sl=_qs(".share .slbl");if(sl)sl.textContent=T.share;
   var m={"sh-x":T.shX,"sh-line":T.shLine,"sh-fb":T.shFb,"sh-copy":T.shCopy};
