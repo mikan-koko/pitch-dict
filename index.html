@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<!-- build: viz-en+orange-header+ticker (redeploy) -->
+<!-- build: header-mascot+en-title+og-v2 -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ピッチの辞書 | サッカー用語を、観ながら3秒で。</title>
-<meta name="description" content="ハーフスペース？ネガトラ？xG？——サッカー実況・コラム・データの専門用語112語を、動く戦術ボードで3秒図解。初心者のためのサッカー用語図鑑Webアプリ。">
+<meta name="description" content="ハーフスペース？ネガトラ？xG？——サッカー実況・コラム・データの専門用語118語を、動く戦術ボードで3秒図解。初心者のためのサッカー用語図鑑Webアプリ。">
 <meta name="theme-color" content="#1536C4"><!-- deploy r2 -->
 <meta property="og:title" content="ピッチの辞書 | サッカー用語を、観ながら3秒で。">
-<meta property="og:description" content="実況の「今の言葉、何？」を動く戦術ボードで3秒図解。全112語収録のサッカー用語図鑑。">
+<meta property="og:description" content="実況の「今の言葉、何？」を動く戦術ボードで3秒図解。全118語収録のサッカー用語図鑑。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ピッチの辞書">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://pitch.kokokikaku.com/">
-<meta property="og:image" content="https://pitch.kokokikaku.com/og%20(1).png">
+<meta property="og:image" content="https://pitch.kokokikaku.com/og-v2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="canonical" href="https://pitch.kokokikaku.com/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ピッチの辞書 | サッカー用語を、観ながら3秒で。">
-<meta name="twitter:description" content="実況の「今の言葉、何？」を動く戦術ボードで3秒図解。全112語収録のサッカー用語図鑑。">
-<meta name="twitter:image" content="https://pitch.kokokikaku.com/og%20(1).png">
+<meta name="twitter:description" content="実況の「今の言葉、何？」を動く戦術ボードで3秒図解。全118語収録のサッカー用語図鑑。">
+<meta name="twitter:image" content="https://pitch.kokokikaku.com/og-v2.png">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"ピッチの辞書","alternateName":"PITCH DICTIONARY","url":"https://pitch.kokokikaku.com/","description":"サッカーの実況・コラム・データで使われる専門用語112語を、動く戦術ボードで図解する初心者向け用語図鑑。","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"ja","isAccessibleForFree":true,"author":{"@type":"Organization","name":"ここ企画","url":"https://kokokikaku.com/"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"ピッチの辞書","alternateName":"PITCH DICTIONARY","url":"https://pitch.kokokikaku.com/","description":"サッカーの実況・コラム・データで使われる専門用語118語を、動く戦術ボードで図解する初心者向け用語図鑑。","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"ja","isAccessibleForFree":true,"author":{"@type":"Organization","name":"ここ企画","url":"https://kokokikaku.com/"}}
 </script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9LWKKLQ9K"></script>
@@ -93,16 +93,23 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 .hbar{display:flex;align-items:center;gap:14px;padding:11px 0}
 .logo{display:flex;align-items:center;gap:11px;white-space:nowrap}
 .logo .mark{
-  width:44px;height:44px;flex:none;display:grid;place-items:center;
-  filter:drop-shadow(0 4px 10px rgba(0,0,0,.45));
+  width:44px;height:44px;flex:none;display:grid;place-items:center;overflow:hidden;
+  background:#1536C4;border-radius:13px;border:2px solid rgba(255,255,255,.85);
+  box-shadow:0 4px 10px rgba(0,0,0,.35);
   transition:transform .25s;
 }
 .logo:hover .mark{transform:rotate(-10deg) scale(1.06)}
 .logo .mark svg{width:100%;height:100%;display:block}
+.logo .mark img{width:118%;height:118%;object-fit:contain;display:block}
 .logo{cursor:pointer}
 .logo b{
   font-family:"Dela Gothic One",var(--pop);font-weight:400;font-size:20.5px;letter-spacing:.01em;line-height:1.12;
-  color:#fff;text-shadow:2.5px 2.5px 0 #12203C, 3px 3px 0 rgba(4,12,45,.35);
+  color:#fff;
+  -webkit-text-stroke:0.6px #0E1B3A;
+  text-shadow:
+    -2px -2px 0 #12203C, 2px -2px 0 #12203C, -2px 2px 0 #12203C, 2px 2px 0 #12203C,
+    0 -2px 0 #12203C, 0 2px 0 #12203C, -2px 0 0 #12203C, 2px 0 0 #12203C,
+    3px 3px 0 rgba(4,12,45,.4);
 }
 .logo small{display:block;color:#1B2A4A;font-size:11px;font-weight:700;letter-spacing:.26em;font-family:Oswald;margin-top:3px}
 .langtog{flex:none;order:2;font-family:Oswald,inherit;font-weight:700;font-size:13px;letter-spacing:.04em;cursor:pointer;
@@ -706,22 +713,7 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
   <div class="wrap hbar">
     <div class="logo">
       <div class="mark">
-        <svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="lgMark" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#FFE082"/><stop offset=".55" stop-color="#FFC93C"/><stop offset="1" stop-color="#FF9A3C"/>
-            </linearGradient>
-          </defs>
-          <rect width="46" height="46" rx="13" fill="url(#lgMark)"/>
-          <rect width="46" height="46" rx="13" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.5"/>
-          <path d="M5 27 h8 M3 32 h6 M7 22 h5" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>
-          <circle cx="27" cy="23" r="12.5" fill="#fff" stroke="#0B1220" stroke-width="2.4"/>
-          <polygon points="27,17.4 32.3,21.3 30.3,27.4 23.7,27.4 21.7,21.3" fill="#0B1220"/>
-          <path d="M27 17.4 V11.6 M32.3 21.3 L38 19 M30.3 27.4 L34 32.6 M23.7 27.4 L20 32.6 M21.7 21.3 L16 19"
-            stroke="#0B1220" stroke-width="2.2" stroke-linecap="round"/>
-          <ellipse cx="22.5" cy="17.5" rx="4" ry="2.4" fill="#fff" opacity=".85"/>
-          <path d="M35 7 l1.2 2.6 2.6 1.2 -2.6 1.2 -1.2 2.6 -1.2 -2.6 -2.6 -1.2 2.6 -1.2 z" fill="#fff" opacity=".95"/>
-        </svg>
+        <img src="mascotc.webp" alt="実況ボールくん" width="44" height="44">
       </div>
       <div><b>ピッチの辞書</b><small>PITCH DICTIONARY</small></div>
     </div>
@@ -3590,6 +3582,7 @@ document.getElementById("sh-copy").addEventListener("click",async e=>{
 const I18N={
  ja:{
   toggle:"EN",
+  brand:"ピッチの辞書",brandsub:"PITCH DICTIONARY",
   search:"用語を検索（例：ハーフスペース、xG、ディレイ…）",
   kicker:"Football Terms, Visualized",
   h1:'実況の「今の言葉、何？」を<br><span class="u">3秒で図解</span>する辞書。',
@@ -3611,6 +3604,7 @@ const I18N={
  },
  en:{
   toggle:"日本語",
+  brand:"PITCH DICTIONARY",brandsub:"Football terms, visualized",
   search:"Search terms (e.g. half-space, xG, delay…)",
   kicker:"Football Terms, Visualized",
   h1:'The dictionary that turns “what did the commentator just say?” into a <span class="u">3-second explainer</span>.',
@@ -3637,6 +3631,8 @@ function applyLang(l){
   try{localStorage.setItem("pd_lang",lang);}catch(_){}
   document.documentElement.lang=lang;
   q.placeholder=T.search;
+  var lb=_qs(".logo b");if(lb&&T.brand)lb.textContent=T.brand;
+  var ls=_qs(".logo small");if(ls&&T.brandsub)ls.textContent=T.brandsub;
   var k=_qs(".hero .kicker");if(k)k.textContent=T.kicker;
   var h=_qs(".hero h1");if(h)h.innerHTML=T.h1;
   var p=_qs(".hero p");if(p)p.innerHTML=T.lead;
