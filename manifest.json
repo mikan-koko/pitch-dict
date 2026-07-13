@@ -1,0 +1,16 @@
+{
+  "name": "ピッチの辞書 | PITCH DICTIONARY",
+  "short_name": "ピッチの辞書",
+  "description": "サッカーの実況・コラム・データの専門用語を、動く戦術ボードで3秒図解する初心者向け用語図鑑。",
+  "lang": "ja",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1536C4",
+  "theme_color": "#FFC01E",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
