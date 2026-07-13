@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: header-mascot+en-title+og-v2 -->
+<!-- build: term-share+deeplink -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -229,6 +229,17 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 .ticker .chip{box-shadow:0 3px 12px rgba(4,12,45,.16)}
 @keyframes tickerscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker-track{animation:none;flex-wrap:wrap;justify-content:center}}
+/* ---------- 用語ごとのシェア行（モーダル内） ---------- */
+.mshare{display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  padding:12px 22px;border-bottom:1px solid rgba(20,45,95,.1);background:#F7FAFF}
+.mshare .mslbl{font-size:12.5px;font-weight:800;color:#3D4F73;margin-right:2px}
+.msbtn{font:inherit;font-size:13px;font-weight:800;cursor:pointer;border-radius:999px;
+  padding:7px 14px;border:2px solid #12203C;color:#fff;background:#12203C;line-height:1;
+  transition:filter .15s,transform .15s}
+.msbtn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.msbtn.line{background:#06C755;border-color:#06C755}
+.msbtn.copy{background:#fff;color:#12203C}
+@media (max-width:640px){.mshare{padding:10px 16px}.msbtn{padding:6px 11px;font-size:12px}}
 
 /* ---------- tabs ---------- */
 .tabs{
@@ -3503,6 +3514,12 @@ function openModal(id){
      <span class="en">${esc(sub)}</span>
      <button class="close" onclick="closeModal()" aria-label="${L.mClose}">✕</button>
    </div>
+   <div class="mshare">
+     <span class="mslbl">${en?"Share this term":"この用語をシェア"}</span>
+     <button class="msbtn x" type="button" onclick="shareTermX('${t.id}')" aria-label="X / Twitter">𝕏 ポスト</button>
+     <button class="msbtn line" type="button" onclick="shareTermLine('${t.id}')" aria-label="LINE">LINE</button>
+     <button class="msbtn copy" type="button" onclick="copyTermLink('${t.id}',this)">🔗 ${en?"Copy link":"リンク"}</button>
+   </div>
    <div class="mbody">
      <div class="step">
        <span class="slabel"><span class="snum">1</span>${L.m1}</span>
@@ -3525,12 +3542,45 @@ function openModal(id){
   mback.classList.add("open");
   mback.scrollTop=0;
   document.body.style.overflow="hidden";
+  try{history.replaceState(null,"","#"+id);}catch(_){}
 }
 function closeModal(){
   mback.classList.remove("open");
   document.body.style.overflow="";
+  try{history.replaceState(null,"",location.pathname+location.search);}catch(_){}
 }
 mback.addEventListener("click",e=>{if(e.target===mback)closeModal()});
+
+/* ===== 用語ごとのシェア＆ディープリンク ===== */
+function termURL(id){return "https://pitch.kokokikaku.com/#"+id;}
+function termShareText(id){
+  const t=TERMS.find(x=>x.id===id);if(!t)return "";
+  const nmJa=t.name.split("（")[0].split("／")[0];
+  return (lang==="en")
+    ? `What does “${t.en}” mean? ⚽ Football terms explained in 3 seconds — PITCH DICTIONARY`
+    : `「${nmJa}」ってこういう意味⚽ サッカー用語を3秒で図解『ピッチの辞書』`;
+}
+window.shareTermX=function(id){
+  const tag=(lang==="en")?" #FIFAWorldCup":" #FIFAワールドカップ";
+  const u=termURL(id), tx=termShareText(id)+tag;
+  window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(tx)+"&url="+encodeURIComponent(u),"_blank","noopener");
+};
+window.shareTermLine=function(id){
+  const u=termURL(id), tx=termShareText(id);
+  window.open("https://social-plugins.line.me/lineit/share?url="+encodeURIComponent(u)+"&text="+encodeURIComponent(tx),"_blank","noopener");
+};
+window.copyTermLink=async function(id,btn){
+  const u=termURL(id), o=btn.textContent;
+  try{ await navigator.clipboard.writeText(u); btn.textContent=(lang==="en"?"✅ Copied!":"✅ コピー！"); setTimeout(()=>{btn.textContent=o;},1800); }
+  catch(_){ prompt("Copy this link / このリンクをコピー",u); }
+};
+/* URLハッシュで直接その用語を開く（例: /#xg） */
+function openFromHash(){
+  const h=decodeURIComponent((location.hash||"").replace(/^#/,"")).trim();
+  if(h && TERMS.find(x=>x.id===h)) openModal(h);
+}
+window.addEventListener("hashchange",openFromHash);
+openFromHash();
 
 /* ===== 戦術ボード拡大（ライトボックス／ズーム＆パン） ===== */
 const vzoom=document.getElementById("vzoom"), vzinner=document.getElementById("vzinner");
