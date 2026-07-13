@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: term-share+deeplink -->
+<!-- build: term-share+deeplink r2 -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -3580,7 +3580,6 @@ function openFromHash(){
   if(h && TERMS.find(x=>x.id===h)) openModal(h);
 }
 window.addEventListener("hashchange",openFromHash);
-openFromHash();
 
 /* ===== 戦術ボード拡大（ライトボックス／ズーム＆パン） ===== */
 const vzoom=document.getElementById("vzoom"), vzinner=document.getElementById("vzinner");
@@ -3709,6 +3708,7 @@ function applyLang(l){
   if(lg)lg.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
   var saved=null;try{saved=localStorage.getItem("pd_lang");}catch(_){}
   applyLang(saved==="en"?"en":"ja");
+  openFromHash();
 })();
 
 </script>
