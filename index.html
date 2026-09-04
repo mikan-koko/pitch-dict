@@ -895,7 +895,7 @@ html[data-theme="dark"] .rel button:hover{background:#12294A}
   <section class="grid" id="grid"></section>
 
   <!-- アフィリエイト枠（affiliates.js が描画。未設定なら自動で非表示） -->
-  <div class="affslot" data-aff="home" hidden></div>
+  <div class="affslot" data-aff="home" data-lang="ja" hidden></div>
 
   <!-- SEO: クローラー向けの静的テキスト＋全用語ページへの内部リンク -->
   <section class="seoblock">
@@ -3642,7 +3642,7 @@ function openModal(id){
        <span class="slabel">${L.mRel}</span>
        <div class="rel">${t.rel.map(r=>{const rt=TERMS.find(x=>x.id===r);if(!rt)return"";const rn=en?rt.en:rt.name.split("（")[0].split("／")[0];return `<button onclick="openModal('${r}')">${esc(rn)} →</button>`;}).join("")}</div>
      </div>`:""}
-     <div class="affslot" data-aff="modal" data-term="${t.id}" data-cat="${t.cat}" hidden></div>
+     <div class="affslot" data-aff="modal" data-lang="${lang}" data-term="${t.id}" data-cat="${t.cat}" hidden></div>
      <p class="mperma"><a href="/terms/${t.id}/">🔗 ${en?"Open the full page for this term":"この用語の詳しいページを開く"} →</a></p>
    </div>`;
   if(window.PD_AFF_render) try{window.PD_AFF_render(modal);}catch(_){}

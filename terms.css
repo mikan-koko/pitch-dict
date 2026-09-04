@@ -9,15 +9,18 @@ a{color:#0E6EAF}
 /* header */
 .th{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#FFC93A,var(--accent) 55%,var(--accentD) 165%);box-shadow:0 3px 16px rgba(10,20,50,.2)}
 .th::after{content:"";display:block;height:5px;background:linear-gradient(90deg,#12203C,#12203C 14%,#FFC01E 24%,#FFD84D 50%,#FFC01E 76%,#12203C 86%,#12203C)}
-.thbar{display:flex;align-items:center;gap:14px;padding:10px 18px;flex-wrap:wrap}
+.thbar{display:flex;align-items:center;gap:12px;padding:10px 18px;flex-wrap:wrap}
 .tlogo{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
 .tlogo img{width:40px;height:40px;border-radius:12px;background:#1536C4;border:2px solid rgba(255,255,255,.85);object-fit:contain;padding:1px}
 .tlogo b{display:block;font-family:"Dela Gothic One",var(--round);font-size:19px;color:#fff;line-height:1.1;text-shadow:-2px -2px 0 #12203C,2px -2px 0 #12203C,-2px 2px 0 #12203C,2px 2px 0 #12203C,0 -2px 0 #12203C,0 2px 0 #12203C,-2px 0 0 #12203C,2px 0 0 #12203C}
-.tlogo small{display:block;color:#1B2A4A;font-size:10.5px;font-weight:700;letter-spacing:.24em;font-family:Oswald,sans-serif;margin-top:2px}
-.tsearch{flex:1;min-width:200px;max-width:460px;display:flex;position:relative}
+.tlogo small{display:block;color:#1B2A4A;font-size:10.5px;font-weight:700;letter-spacing:.18em;font-family:Oswald,sans-serif;margin-top:2px}
+.tsearch{flex:1;min-width:180px;max-width:440px;display:flex;position:relative}
 .tsearch input{width:100%;padding:10px 46px 10px 18px;border-radius:999px;background:#fff;border:2px solid rgba(20,45,95,.18);font:inherit;font-size:15px;outline:none}
 .tsearch input:focus{border-color:#12203C}
 .tsearch button{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:none;border-radius:50%;background:#12203C;color:#fff;cursor:pointer;font-size:14px}
+.tlang{flex:none;font-family:Oswald,var(--round),sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-decoration:none;
+  background:#12203C;color:#fff;border:2px solid #12203C;border-radius:999px;padding:7px 15px;white-space:nowrap;transition:filter .15s,transform .15s}
+.tlang:hover{filter:brightness(1.25);transform:translateY(-1px);color:#fff}
 /* main */
 .tmain{padding:22px 18px 40px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start}
 @media (max-width:900px){.tmain{grid-template-columns:1fr}}
@@ -34,6 +37,10 @@ h1 small{font-size:.5em;color:var(--muted);font-weight:700}
 .ten{font-family:Oswald,sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:6px 0 12px;display:flex;gap:14px;flex-wrap:wrap}
 .tkana{font-family:inherit;text-transform:none;letter-spacing:0;font-size:13px}
 .tlead{font-size:17px;line-height:1.85;margin-bottom:8px}
+/* 言語切り替えの導線 */
+.taltlang{margin:12px 0 4px;font-size:14px;font-weight:800}
+.taltlang a{display:inline-block;text-decoration:none;color:#0E6EAF;background:#F1F6FF;border:2px solid rgba(30,150,224,.3);border-radius:999px;padding:7px 16px;transition:background .15s,transform .12s}
+.taltlang a:hover{background:#E2EEFF;transform:translateY(-1px)}
 .tstep{margin-top:26px}
 .tstep h2{font-family:var(--round);font-size:16px;font-weight:900;color:#12203C;display:flex;align-items:center;gap:9px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px dashed rgba(20,40,90,.14)}
 .tstep h2 small{font-size:12.5px;color:var(--muted);font-weight:700}
@@ -58,19 +65,17 @@ h1 small{font-size:.5em;color:var(--muted);font-weight:700}
 .tchip{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:800;padding:7px 14px 7px 9px;border-radius:999px;text-decoration:none;background:#fff;color:var(--ccd,#0E6EAF);border:2px solid color-mix(in srgb,var(--cc,#1E96E0) 45%,#fff);transition:background .15s,transform .12s}
 .tchip:hover{background:color-mix(in srgb,var(--cc,#1E96E0) 12%,#fff);transform:translateY(-1px)}
 .tchip span{font-size:15px}
-.ten-sec{background:#F6F8FC;border-radius:14px;padding:16px 18px 18px;border:1px solid rgba(20,40,90,.1)}
-.ten-sec h2{border-bottom-color:rgba(20,40,90,.18)}
-.ten-sec .tlead{font-size:15.5px}.ten-sec .tcatch{font-size:17px}
 .tshare{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:26px;font-size:13.5px;font-weight:700;color:var(--muted)}
 .sbtn{display:inline-block;text-decoration:none;font-weight:800;font-size:13.5px;padding:8px 16px;border-radius:999px;color:#fff;border:2px solid #12203C;box-shadow:0 3px 0 #12203C}
 .sbtn.x{background:#111}.sbtn.line{background:#06C755}
+.sbtn:hover{color:#fff}
 .tpn{display:flex;justify-content:space-between;gap:12px;margin-top:22px;padding-top:16px;border-top:2px dashed rgba(20,40,90,.14);font-weight:800;font-size:14px}
 .tpn a{text-decoration:none;color:#0E6EAF}
 .taside{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.28);border-radius:20px;padding:18px 16px;color:#fff;position:sticky;top:96px}
 .taside h2{font-family:var(--round);font-size:15px;font-weight:900;margin-bottom:12px;color:#fff}
 .taside .tchip{font-size:13px;padding:6px 12px 6px 8px}
 .tmore{margin-top:14px;font-size:14px;font-weight:800}.tmore a{color:#FFD84D}
-/* index */
+/* index / landing */
 .tindex{grid-template-columns:1fr}
 .tjump{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
 .tjump a{text-decoration:none;font-weight:800;font-size:13.5px;color:var(--ccd);background:color-mix(in srgb,var(--cc) 14%,#fff);border:2px solid color-mix(in srgb,var(--cc) 45%,#fff);padding:7px 14px;border-radius:999px}
@@ -83,11 +88,22 @@ h1 small{font-size:.5em;color:var(--muted);font-weight:700}
 .tlist b{font-family:var(--round);font-size:15.5px;font-weight:900;line-height:1.3}
 .tlist i{font-style:normal;font-family:Oswald,sans-serif;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-left:8px}
 .tlist .tone{grid-column:2;font-size:12.5px;color:#33456A;line-height:1.5}
+.seocats{list-style:none;display:grid;gap:8px;padding-left:0}
+.seocats li{background:#F6F9FF;border-left:4px solid var(--cyan);border-radius:0 10px 10px 0;padding:9px 14px;font-size:14px;line-height:1.75}
+.seocats b{color:#12203C}
+ol.seocats{counter-reset:s}
+ol.seocats li{list-style:none}
+.seofaq dt{font-weight:900;font-size:14.5px;margin-top:12px;color:#12203C}
+.seofaq dd{font-size:14.5px;color:#33456A;margin-left:0}
+.seolinks h2{margin-top:26px}
+.seolinks div{display:flex;flex-wrap:wrap;gap:6px}
+.seolinks a{font-size:12.5px;font-weight:700;color:#0E6EAF;text-decoration:none;background:#F1F6FF;border:1px solid rgba(30,150,224,.28);border-radius:999px;padding:4px 11px}
+.seolinks a:hover{background:#E2EEFF}
 /* affiliate slot（affiliates.js が描画） */
 .affslot{margin-top:26px}
-.affbox{border:2px dashed rgba(20,40,90,.18);border-radius:16px;padding:14px 16px 16px;background:#FBFCFF}
+.affbox{border:2px dashed rgba(20,40,90,.18);border-radius:16px;padding:14px 16px 16px;background:#FBFCFF;position:relative}
 .affbox .afft{display:flex;align-items:center;gap:8px;font-family:var(--round);font-weight:900;font-size:15px;color:#12203C;margin-bottom:10px}
-.affpr{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#fff;background:#6B7A99;border-radius:4px;padding:2px 6px}
+.affpr{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#fff;background:#6B7A99;border-radius:4px;padding:2px 6px;flex:none}
 .affgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
 .affcard{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink);background:#fff;border:2px solid rgba(20,40,90,.12);border-radius:14px;padding:12px 14px;transition:transform .12s,border-color .12s}
 .affcard:hover{transform:translateY(-2px);border-color:var(--accent)}
@@ -98,7 +114,7 @@ h1 small{font-size:.5em;color:var(--muted);font-weight:700}
 .affraw{display:grid;gap:10px}
 .affraw>div{overflow-x:auto}
 .affraw img{max-width:100%;height:auto}
-.affnote{font-size:11.5px;color:var(--muted);margin-top:8px}
+.affnote{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.7}
 /* footer */
 .tf{border-top:1px solid rgba(255,255,255,.2);padding:26px 0 44px;color:rgba(255,255,255,.88);font-size:13.5px;text-align:center;line-height:2}
 .tfnav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-weight:800}
@@ -112,6 +128,8 @@ h1 small{font-size:.5em;color:var(--muted);font-weight:700}
   .tcatch{font-size:17.5px;padding:12px 14px}
   .tlist{grid-template-columns:1fr}
   .taside{position:static}
+  .tsearch{order:3;flex-basis:100%;max-width:none}
+  .tsearch input{font-size:16px}
 }
 /* ---------- 戦術ボードのアニメーション（index.html から抽出） ---------- */
 

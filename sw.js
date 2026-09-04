@@ -23,11 +23,12 @@
  *
  * ⚠️ ASSETS に載せたファイルを増減したら CACHE のバージョンを上げること。
  */
-const CACHE = "pitch-v5";
+const CACHE = "pitch-v6";
 const ASSETS = [
   "/", "/index.html", "/mascotc.webp", "/icon.svg",
   "/icon-512.png", "/manifest.json", "/og-v2.png",
-  "/terms.css", "/affiliates.js", "/terms/", "/404.html"
+  "/terms.css", "/affiliates.js", "/terms/", "/404.html",
+  "/en/", "/en/terms/"
 ];
 
 /* ブラウザHTTPキャッシュを飛ばして取り直す（罠3への対処） */

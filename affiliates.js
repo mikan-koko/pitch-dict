@@ -29,6 +29,10 @@
  *   cats:["live","column"]  … 用語カテゴリ（live/column/data/rule）が一致するページ・モーダルのみ
  *   terms:["derby","xg"]    … 特定の用語のみ
  *   slots:["home","term"]   … home=トップ＆一覧, term=用語ページ, modal=用語モーダル（省略時は全枠）
+ *   langs:["ja","en"]       … 表示する言語。**省略時は ["ja"]（日本語ページのみ）**。
+ *                             英語ページ(/en/)は世界中から読まれるため、日本国内限定の
+ *                             サービスを出しても成約せず体験も損なう。海外でも申し込める
+ *                             広告主と提携できたら langs に "en" を足すこと。
  *
  * ▼ 法令対応（2023年10月〜 景品表示法ステマ規制）
  *   広告枠には自動で「PR」表記と disclosure の文言が付きます。消さないでください。
@@ -165,6 +169,10 @@ window.PD_AFF = {
       if (!it.enabled) return false;
       if (it.kind === "card" && !it.url) return false;
       if (it.kind === "html" && !(it.html && it.html.trim())) return false;
+      /* 言語で出し分ける。langs 未指定なら日本語ページのみ（既存の広告主はすべて日本国内向け）。
+         英語ページに日本限定のサービスを出しても成約しないうえ、読者の体験を損なう。 */
+      var langs = it.langs || ["ja"];
+      if (langs.indexOf(ctx.lang) < 0) return false;
       if (it.slots && it.slots.indexOf(slot) < 0) return false;
       if (slot !== "home" && it.cats && ctx.cat && it.cats.indexOf(ctx.cat) < 0) return false;
       if (slot !== "home" && it.terms && ctx.term && it.terms.indexOf(ctx.term) < 0) return false;
@@ -189,7 +197,11 @@ window.PD_AFF = {
     Array.prototype.forEach.call(nodes, function (el) {
       if (el.getAttribute("data-aff-done")) return;
       var slot = el.getAttribute("data-aff");
-      var ctx = { term: el.getAttribute("data-term") || "", cat: el.getAttribute("data-cat") || "" };
+      var ctx = {
+        term: el.getAttribute("data-term") || "",
+        cat: el.getAttribute("data-cat") || "",
+        lang: el.getAttribute("data-lang") || "ja",
+      };
       var items = pick(slot, ctx);
       if (!items.length) { el.hidden = true; return; }
       var cards = items.filter(function (i) { return i.kind !== "html"; });
