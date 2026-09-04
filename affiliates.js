@@ -9,10 +9,12 @@
  *     ・WOWOW                提携中（成果 1,269円 / 有料申込完了）
  *     ・スカパー！            提携中（成果 3,909円 / 本登録）
  *     ・楽天市場の商品購入     提携中（成果 2% / どこでもリンクで任意ページへ）
- *   A8.net … pitch.kokokikaku.com は【未登録】。
- *     A8のリンクを貼る前に、必ず「サイト情報の登録・修正」でこのサイトを登録すること。
- *     登録には管理画面の再認証（ログインID＋パスワード）が必要。
- *     ※ 他サイト用に発行したリンクをこのサイトに貼るのは規約違反になるので絶対にしない。
+ *   A8.net … 副サイト「ピッチの辞書【アピールサイト】」(websiteId 007) 登録済み
+ *     ・ABEMAプレミアム          提携中（成果 902円 / 新規会員登録）
+ *     ・スーパースポーツゼビオ    提携中（成果 購入6.5%）
+ *     ・チケットジャム           提携申請中（審査待ち）
+ *     ※ 広告リンクを取り直すときは、掲載サイトに必ず「ピッチの辞書【アピールサイト】」を選ぶ。
+ *        他サイト用に発行したリンクをこのサイトに貼るのは規約違反になるので絶対にしない。
  *
  * ▼ item の書き方（2種類）
  *   A) kind:"card"  … サイトのデザインに合わせたカード型
@@ -50,8 +52,8 @@ window.PD_AFF = {
   },
   /* 枠の下に出る注記（ステマ規制対応。文言の変更は可、削除は不可） */
   disclosure: "※ アフィリエイト広告（PR）を含みます。リンク先での申込・購入により当サイトに報酬が支払われることがあります。",
-  /* 1枠に出す最大件数 */
-  max: { home: 4, term: 3, modal: 2 },
+  /* 1枠に出す最大件数。トップは横並びのグリッドが折り返すので多めでも崩れない */
+  max: { home: 6, term: 3, modal: 2 },
 
   items: [
     /* ---------- もしもアフィリエイト（提携済み） ---------- */
@@ -83,7 +85,7 @@ window.PD_AFF = {
       btn: "戦術本を探す",
       url: pdRakutenSearch("サッカー 戦術 本"),
       imp: PD_RAKUTEN_IMP,
-      cats: ["column"],
+      slots: ["term", "modal"], cats: ["column"],
     },
     {
       enabled: true, kind: "card",
@@ -93,7 +95,7 @@ window.PD_AFF = {
       btn: "データ分析本を探す",
       url: pdRakutenSearch("サッカー データ 分析 本"),
       imp: PD_RAKUTEN_IMP,
-      cats: ["data"],
+      slots: ["term", "modal"], cats: ["data"],
     },
     {
       enabled: true, kind: "card",
@@ -103,7 +105,7 @@ window.PD_AFF = {
       btn: "ルールの本を探す",
       url: pdRakutenSearch("サッカー 競技規則"),
       imp: PD_RAKUTEN_IMP,
-      cats: ["rule"],
+      slots: ["term", "modal"], cats: ["rule"],
     },
     {
       enabled: true, kind: "card",
@@ -116,28 +118,35 @@ window.PD_AFF = {
       slots: ["home"],
     },
 
-    /* ---------- これから増やす枠 ----------
-       提携が承認されたら enabled を true にして url / imp を貼る。
-       DAZN・U-NEXT・ABEMA はもしもの現在の掲載一覧には無かったので、
-       A8.net でサイト登録のうえ提携申請するのが早い。 */
+    /* ---------- A8.net（提携済み） ----------
+       サイト登録名は「ピッチの辞書【アピールサイト】」(websiteId 007)。
+       リンクを取り直すときは、必ず掲載サイトにこれを選ぶこと。 */
     {
-      enabled: false, kind: "card",
-      badge: "Jリーグ・海外サッカー",
-      title: "DAZN（ダゾーン）",
-      desc: "Jリーグ全試合＋海外サッカーをライブ配信。実況の「今の言葉」をその場で確認できる。",
-      btn: "DAZNを見る",
-      url: "", imp: "",
+      enabled: true, kind: "card",
+      badge: "日本代表戦・海外サッカー",
+      title: "ABEMAプレミアム",
+      desc: "サッカー中継やオリジナル番組が見放題。試合を観ながら用語の意味を確かめたい人へ。",
+      btn: "ABEMAを見る",
+      url: "https://px.a8.net/svt/ejp?a8mat=4BC36O+8SQR8I+4EKC+5YRHE",
+      imp: "https://www12.a8.net/0.gif?a8mat=4BC36O+8SQR8I+4EKC+5YRHE",
       cats: ["live", "column", "data"],
     },
     {
-      enabled: false, kind: "card",
-      badge: "プレミア・ラ・リーガ",
-      title: "U-NEXT サッカーパック",
-      desc: "プレミアリーグ／ラ・リーガ／セリエAを配信。",
-      btn: "U-NEXTを見る",
-      url: "", imp: "",
-      cats: ["live", "column", "data"],
+      enabled: true, kind: "card",
+      badge: "スーパースポーツゼビオ",
+      title: "サッカー用品・スパイク",
+      desc: "スパイク、ボール、ウェアまで。自分でプレーする人にも、観戦グッズを探す人にも。",
+      btn: "サッカー用品を見る",
+      url: "https://px.a8.net/svt/ejp?a8mat=4BC36O+8WBCV6+4ABU+5YRHE",
+      imp: "https://www14.a8.net/0.gif?a8mat=4BC36O+8WBCV6+4ABU+5YRHE",
+      slots: ["home"],
     },
+
+    /* ---------- 審査待ち・未提携 ----------
+       承認されたら enabled を true にして url / imp を貼る。
+       ・チケットジャム（A8 / s00000025165001）… 2026-09-04 提携申請済み。審査待ち
+       ・DAZN と U-NEXT は A8・もしものどちらにも掲載が無い（2026-09-04 時点）。
+         直接提携かバリューコマース等、別ASPを当たる必要がある。 */
     {
       /* もしも「かんたんリンク」で作った商品カードのHTMLを html に貼る（バッククォートの中） */
       enabled: false, kind: "html", slots: ["home", "term"],
