@@ -1,8 +1,9 @@
 /* ピッチの辞書 Service Worker */
-const CACHE = "pitch-v1";
+const CACHE = "pitch-v2";
 const ASSETS = [
   "/", "/index.html", "/mascotc.webp", "/icon.svg",
-  "/icon-512.png", "/manifest.json", "/og-v2.png"
+  "/icon-512.png", "/manifest.json", "/og-v2.png",
+  "/terms.css", "/affiliates.js", "/terms/", "/404.html"
 ];
 self.addEventListener("install", e => {
   e.waitUntil(
