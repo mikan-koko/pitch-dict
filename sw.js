@@ -11,7 +11,7 @@
  *
  * ⚠️ ASSETS に載せたファイルを増減したら CACHE のバージョンを上げること。
  */
-const CACHE = "pitch-v3";
+const CACHE = "pitch-v4";
 const ASSETS = [
   "/", "/index.html", "/mascotc.webp", "/icon.svg",
   "/icon-512.png", "/manifest.json", "/og-v2.png",
@@ -55,14 +55,22 @@ self.addEventListener("fetch", e => {
   const isCode = /\.(js|css|json|xml)$/i.test(url.pathname);
   if (isCode) {
     // stale-while-revalidate：キャッシュを即返しつつ、裏で必ず取り直す
+    //
+    // ⚠️ waitUntil を外さないこと。respondWith がキャッシュで即座に解決すると、
+    //    ブラウザは Service Worker を終了してよいと判断する。裏の fetch と
+    //    cache.put が終わる前に落とされ、キャッシュが永久に更新されなくなる。
+    //    また waitUntil はイベントハンドラ内で同期的に呼ぶ必要がある
+    //    （.then の中から呼ぶと InvalidStateError になる）。
+    const net = fetch(req).then(r => {
+      if (r && r.ok) {
+        const cp = r.clone();
+        return caches.open(CACHE).then(c => c.put(req, cp)).then(() => r);
+      }
+      return r;
+    }).catch(() => null);
+    e.waitUntil(net);
     e.respondWith(
-      caches.match(req).then(cached => {
-        const net = fetch(req).then(r => {
-          if (r && r.ok) { const cp = r.clone(); caches.open(CACHE).then(c => c.put(req, cp)); }
-          return r;
-        }).catch(() => cached);
-        return cached || net;
-      })
+      caches.match(req).then(cached => cached || net.then(r => r || fetch(req)))
     );
     return;
   }
