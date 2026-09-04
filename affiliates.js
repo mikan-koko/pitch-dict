@@ -179,7 +179,10 @@ window.PD_AFF = {
       + '<span class="affbtn">' + esc(it.btn || "詳しく見る") + " →</span></a>";
   }
   function impHTML(it) {
-    return it.imp ? '<img src="' + esc(it.imp) + '" width="1" height="1" alt="" style="border:none" loading="lazy">' : "";
+    /* インプレッション計測用の1x1画像。
+       loading="lazy" を付けてはいけない：この画像は0x0の隠しコンテナに入るため、
+       遅延読み込みだとビューポートに入らず永久に読み込まれず、表示回数が計上されない。 */
+    return it.imp ? '<img src="' + esc(it.imp) + '" width="1" height="1" alt="" style="border:none">' : "";
   }
   function render(root) {
     var nodes = (root || document).querySelectorAll("[data-aff]");
