@@ -15,7 +15,7 @@
  *    裏の fetch と cache.put が完了前に打ち切られてキャッシュが更新されない。
  *    waitUntil はイベントハンドラ内で同期的に呼ぶ（.then の中だと InvalidStateError）。
  *
- * ⚠️ 3. 再取得の fetch には cache:"no-cache" を付けること。
+ * ⚠️ 3. サーバへ取りに行く fetch にはすべて cache:"no-cache" を付けること（HTMLも含む）。
  *    GitHub Pages は静的ファイルに Cache-Control: max-age=600 を返す。
  *    素の fetch はブラウザHTTPキャッシュを経由するため、SWは「取り直したつもりで
  *    10分前の古い応答」をキャッシュに書き戻してしまう。no-cache ならETagで
@@ -23,7 +23,7 @@
  *
  * ⚠️ ASSETS に載せたファイルを増減したら CACHE のバージョンを上げること。
  */
-const CACHE = "pitch-v6";
+const CACHE = "pitch-v7";
 const ASSETS = [
   "/", "/index.html", "/mascotc.webp", "/icon.svg",
   "/icon-512.png", "/manifest.json", "/og-v2.png",
@@ -65,8 +65,10 @@ self.addEventListener("fetch", e => {
 
   const isHTML = req.mode === "navigate" || (req.headers.get("accept") || "").includes("text/html");
   if (isHTML) {
+    // network-first。ここも fetchFresh を使う（罠3）。素の fetch だとブラウザHTTPキャッシュが
+    // max-age=600 の古いHTMLを返し、「network-first のはずなのに更新が10分届かない」ことになる。
     e.respondWith(
-      fetch(req)
+      fetchFresh(req)
         .then(r => {
           if (r && r.ok) { const cp = r.clone(); caches.open(CACHE).then(c => c.put(req, cp)); }
           return r;
