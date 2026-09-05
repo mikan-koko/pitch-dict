@@ -276,7 +276,7 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 .tab.on{background:var(--accent);color:#3A2A00;box-shadow:0 5px 16px rgba(255,192,30,.4)}
 
 /* ---------- cards（ポップ図鑑カード） ---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(246px,1fr));gap:16px;padding-bottom:70px}
+.grid{scroll-margin-top:var(--stickyoff,170px);display:grid;grid-template-columns:repeat(auto-fill,minmax(246px,1fr));gap:16px;padding-bottom:70px}
 .card{
   background:#FFFFFF;
   border:2.5px solid rgba(20,40,90,.14);border-radius:var(--r);
@@ -431,11 +431,14 @@ header::after{ /* アクセントバー（白・黒・イエロー） */
 
 /* ---------- カテゴリーセクション（折りたたみ） ---------- */
 .sechead{
+  /* 追従するヘッダー＋タブバーのぶん手前で止める。値は setTabTop() が --stickyoff に入れる。
+     ここを要素のインラインstyleでやってはいけない：render() が innerHTML を作り直すたびに消える。 */
+  scroll-margin-top:var(--stickyoff,170px);
   grid-column:1/-1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   margin:28px 0 6px;padding:15px 20px;border-radius:18px;position:relative;overflow:hidden;
   background:linear-gradient(90deg,#ffffff, rgba(255,255,255,.7) 82%);
   border:2.5px solid rgba(20,40,90,.10);
-  border-left:7px solid var(--cc,#FFB300);scroll-margin-top:130px;
+  border-left:7px solid var(--cc,#FFB300);
   box-shadow:0 4px 0 rgba(20,40,90,.08);
 }
 .sechead .secghost{
@@ -682,7 +685,6 @@ footer{border-top:1px solid rgba(255,255,255,.2);padding:30px 0 44px;color:rgba(
   .modal{border-radius:16px}
   .mback{padding:2vh 10px 4vh}
   .company{padding:18px 16px 16px}
-  .sechead{scroll-margin-top:170px}
 }
 @media (max-width:380px){
   .grid{grid-template-columns:1fr}
@@ -980,7 +982,7 @@ html[data-theme="dark"] .rel button:hover{background:#12294A}
     tabs.style.top=(h+8)+"px";
     var tb=Math.round(tabs.getBoundingClientRect().height);
     var sm=(h+tb+20)+"px";
-    document.querySelectorAll(".sechead").forEach(function(s){s.style.scrollMarginTop=sm;});
+    document.documentElement.style.setProperty("--stickyoff",sm);
   }
   window.addEventListener("resize",setTabTop);
   window.addEventListener("load",setTabTop);
@@ -3859,7 +3861,9 @@ function applyLang(l){
   var lg=document.querySelector(".logo");
   if(lg)lg.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
   var saved=null;try{saved=localStorage.getItem("pd_lang");}catch(_){}
-  applyLang(saved==="en"?"en":"ja");
+  /* 英語の静的ページ(/en/)から来たときは ?lang=en が付く。URLでの明示は保存値より優先する。 */
+  var urlLang=null;try{urlLang=new URLSearchParams(location.search).get("lang");}catch(_){}
+  applyLang((urlLang==="en"||urlLang==="ja")?urlLang:(saved==="en"?"en":"ja"));
   applyQueryParam();
   openFromHash();
   /* 夜観戦ダークモード */

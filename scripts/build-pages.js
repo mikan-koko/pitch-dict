@@ -219,8 +219,9 @@ ${sharedDefs}
 <header class="th">
   <div class="wrap thbar">
     <a class="tlogo" href="${homePath(lang)}"><img src="/mascotc.webp" alt="" width="40" height="40"><span><b>${esc(u.brand)}</b><small>${esc(u.brandsub)}</small></span></a>
-    <form class="tsearch" action="${homePath(lang)}" method="get" role="search">
+    <form class="tsearch" action="/" method="get" role="search">
       <input type="search" name="q" placeholder="${esc(u.search)}" aria-label="${esc(u.searchAria)}">
+      ${lang === "en" ? '<input type="hidden" name="lang" value="en">' : ""}
       <button type="submit" aria-label="${esc(u.searchAria)}">🔍</button>
     </form>
     <a class="tlang" href="${altPath || altUrl}" hreflang="${lang === "ja" ? "en" : "ja"}" aria-label="${esc(u.switchAria)}">${esc(u.switchTo)}</a>
@@ -342,7 +343,7 @@ function termPage(t, lang) {
       <h2><span class="snum">2</span>${esc(I18N[lang].m2)}</h2>
       <div class="viz">${svg}</div>
       <p class="vizcap">${esc(u.vizCap)}</p>
-      <p class="tapp"><a class="tbtn" href="/#${t.id}">${esc(u.appBtn(TERMS.length - 1))}</a></p>
+      <p class="tapp"><a class="tbtn" href="${lang === "ja" ? "/#" + t.id : "/?lang=en#" + t.id}">${esc(u.appBtn(TERMS.length - 1))}</a></p>
     </section>
 
     <section class="tstep">
