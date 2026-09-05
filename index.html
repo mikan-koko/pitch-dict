@@ -3453,10 +3453,33 @@ function buildTicker(){
 buildTicker();
 
 /* タブ */
+/* 絞り込みを変えたあとの、一覧の先頭が来るスクロール位置。
+   ヘッダーとタブバーはどちらも position:sticky なので、その高さぶん手前で止める。 */
+function listTopY(){
+  const grid=document.getElementById("grid");
+  if(!grid) return 0;
+  const hdr=document.querySelector("header"), tabs=document.getElementById("tabs");
+  const stuck=(hdr?hdr.getBoundingClientRect().height:0)+(tabs?tabs.getBoundingClientRect().height:0)+16;
+  return Math.max(0, grid.getBoundingClientRect().top+window.scrollY-stuck);
+}
+/* カテゴリーを切り替えたら一覧の先頭に戻す。
+   これが無いと、語数の多いカテゴリー（実況56語）で下までスクロールしてから
+   語数の少ないカテゴリー（データ13語）に切り替えたとき、ページが短くなるせいで
+   フッターに取り残され、用語が1つも見えなくなる。
+   ただし利用者が一覧より上（ヒーロー付近）にいるときは動かさない。下に引っぱられると
+   かえって驚くので、上方向への補正だけ行う。 */
+function scrollToListTop(){
+  const y=listTopY();
+  if(window.scrollY<=y) return;
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({top:y, behavior:reduce?"auto":"smooth"});
+}
 document.getElementById("tabs").addEventListener("click",e=>{
   const b=e.target.closest(".tab");if(!b)return;
-  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===b));
+  if(filter===b.dataset.f) return; /* 同じタブの押し直しでは何もしない */
+  document.querySelectorAll("#tabs .tab").forEach(x=>x.classList.toggle("on",x===b));
   filter=b.dataset.f;render();
+  scrollToListTop();
 });
 /* ===== 検索：サジェスト／決定でジャンプ／×クリア ===== */
 const qclear=document.getElementById("qclear"), qsug=document.getElementById("qsug");
